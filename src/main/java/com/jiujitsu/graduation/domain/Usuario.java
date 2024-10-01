@@ -26,6 +26,9 @@ public class Usuario implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
+    public Usuario(Aluno dados) {
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

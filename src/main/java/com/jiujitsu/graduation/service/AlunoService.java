@@ -5,7 +5,7 @@ import com.jiujitsu.graduation.domain.Faixa;
 import com.jiujitsu.graduation.domain.UserRole;
 import com.jiujitsu.graduation.domain.Usuario;
 import com.jiujitsu.graduation.exception.AlunoNotFoundException;
-import com.jiujitsu.graduation.repository.AlunoRepository;
+import com.jiujitsu.graduation.repository.IAlunoRepository;
 import com.jiujitsu.graduation.repository.IUsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,26 +19,27 @@ import java.util.List;
 public class AlunoService {
 
     @Autowired
-    private AlunoRepository repository;
+    private IAlunoRepository repository;
 
     @Autowired
     private IUsuarioRepository usuarioRepository;
 
 
+
     public Aluno cadastrarAluno(Aluno aluno) {
         Aluno alunoSalvo = repository.save(aluno);
-        criarUsuarioParaAluno(alunoSalvo);
+//        criarUsuarioParaAluno(alunoSalvo); da problema de nullpointer exception no testeunitario
         return alunoSalvo;
     }
 
-    private void criarUsuarioParaAluno(Aluno alunoSalvo) {
+    public Usuario criarUsuarioParaAluno(Aluno alunoSalvo) {
         String senha = alunoSalvo.getCpf();
         String senhaCriptografada = new BCryptPasswordEncoder().encode(senha);
         Usuario usuario = new Usuario();
         usuario.setEmail(alunoSalvo.getEmail());
         usuario.setSenha(senhaCriptografada);
         usuario.setRole(UserRole.USER);
-        usuarioRepository.save(usuario);
+        return usuarioRepository.save(usuario);
     }
 
     private String gerarSenhaAleatoria() {

@@ -23,6 +23,7 @@ public class AlunoController {
     @PostMapping
     public ResponseEntity<Aluno> criar (@RequestBody Aluno aluno){
         Aluno entity = service.cadastrarAluno(aluno);
+        service.criarUsuarioParaAluno(aluno);
         return ResponseEntity.status(HttpStatus.CREATED).body(aluno);
     }
 

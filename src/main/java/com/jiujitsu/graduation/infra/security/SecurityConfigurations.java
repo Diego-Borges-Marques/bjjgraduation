@@ -1,5 +1,6 @@
 package com.jiujitsu.graduation.infra.security;
 
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,15 +24,24 @@ public class SecurityConfigurations {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
-        return httpSecurity
+
+         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.PUT, "/api/jiujitsu/alunos/graduar/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST,"/api/jiujitsu/alunos/create").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/jiujitsu/auth/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
-                .build();
+                .exceptionHandling(ex -> ex
+                        .authenticationEntryPoint((req, res, authEx) -> {
+                            res.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized");
+                        })
+                        .accessDeniedHandler((req, res, accessDeniedException) -> {
+                            res.sendError(HttpServletResponse.SC_FORBIDDEN, "Access Denied");
+                        }));
+                return httpSecurity.build();
     }
 
     @Bean //Spring faça injeção do metodo

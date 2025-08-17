@@ -52,6 +52,10 @@ public class AlunoService {
             return repository.findById(id).orElseThrow(() -> new AlunoNotFoundException(id));
     }
 
+    public Aluno buscarAlunoPorEmail(String email){
+        return repository.findByEmail(email);
+    }
+
    /* public Aluno graduarGrau(Aluno aluno){
 
         Faixa atual = aluno.getFaixa();

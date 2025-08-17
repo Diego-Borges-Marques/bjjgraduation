@@ -86,11 +86,6 @@
 			<artifactId>mysql-connector-j</artifactId>
 			<version>8.0.33</version>
 		</dependency>
-		<dependency>
-			<groupId>com.jiujitsu</groupId>
-			<artifactId>graduation</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
 
 	</dependencies>
 

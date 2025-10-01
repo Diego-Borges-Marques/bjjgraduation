@@ -1,6 +1,8 @@
-package com.jiujitsu.graduation.domain;
+package com.jiujitsu.graduation.domain.entity;
 
 
+import com.jiujitsu.graduation.domain.Enum.Faixa;
+import com.jiujitsu.graduation.domain.dto.AlunoDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -35,6 +37,12 @@ public class Aluno implements Serializable {
     @Column(name = "checkins")
     private int checkin;
 
+    public Aluno(AlunoDto alunoDto){
+		nome = alunoDto.nome();
+        email = alunoDto.email();
+        cpf = alunoDto.cpf();
+        faixa = alunoDto.faixa();
+    }
 
     @Override
     public boolean equals(Object o) {

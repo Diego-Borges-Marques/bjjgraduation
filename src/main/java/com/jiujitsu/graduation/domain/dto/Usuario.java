@@ -1,5 +1,7 @@
-package com.jiujitsu.graduation.domain;
+package com.jiujitsu.graduation.domain.dto;
 
+import com.jiujitsu.graduation.domain.Enum.UserRole;
+import com.jiujitsu.graduation.domain.entity.Aluno;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;

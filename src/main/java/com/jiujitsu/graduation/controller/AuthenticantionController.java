@@ -1,8 +1,8 @@
 package com.jiujitsu.graduation.controller;
 
-import com.jiujitsu.graduation.domain.AuthenticationDTO;
-import com.jiujitsu.graduation.domain.LoginResponseDTO;
-import com.jiujitsu.graduation.domain.Usuario;
+import com.jiujitsu.graduation.domain.dto.AuthenticationDTO;
+import com.jiujitsu.graduation.domain.dto.LoginResponseDTO;
+import com.jiujitsu.graduation.domain.dto.Usuario;
 import com.jiujitsu.graduation.infra.security.TokenService;
 import com.jiujitsu.graduation.repository.IUsuarioRepository;
 import com.jiujitsu.graduation.service.AuthorizationService;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

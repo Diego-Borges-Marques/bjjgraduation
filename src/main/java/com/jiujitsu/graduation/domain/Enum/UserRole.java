@@ -1,4 +1,4 @@
-package com.jiujitsu.graduation.domain;
+package com.jiujitsu.graduation.domain.Enum;
 
 public enum UserRole {
 

@@ -8,9 +8,11 @@ import com.jiujitsu.graduation.domain.dto.AlunoDto;
 import com.jiujitsu.graduation.exception.AlunoNotFoundException;
 import com.jiujitsu.graduation.repository.IAlunoRepository;
 import com.jiujitsu.graduation.repository.IUsuarioRepository;
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.jiujitsu.graduation.domain.dto.Email;
 
 import java.security.SecureRandom;
 import java.util.Base64;
@@ -24,11 +26,18 @@ public class AlunoService {
 
 	@Autowired
 	private IUsuarioRepository usuarioRepository;
-
+	@Autowired
+	private EmailService email;
 
 	public void cadastrarAluno(AlunoDto alunoDto) {
-		Aluno aluno = new Aluno(alunoDto);
-		repository.save(aluno);
+		try {
+			Aluno aluno = new Aluno(alunoDto);
+			Email confirmaEmail = new Email(aluno.getEmail(),"Cadastro Realizado");
+			email.envioDeEmail(confirmaEmail);
+			repository.save(aluno);
+		}catch (MessagingException e){
+			e.getMessage();
+		}
 	}
 
 	public Usuario criarUsuarioParaAluno(Aluno alunoSalvo) {

@@ -4,7 +4,9 @@ import com.jiujitsu.graduation.domain.entity.Aluno;
 import com.jiujitsu.graduation.domain.dto.AlunoDto;
 import com.jiujitsu.graduation.service.AlunoService;
 import com.jiujitsu.graduation.utils.AlunoUtils;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
+import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,8 +26,9 @@ public class AlunoController {
     private AlunoUtils utils;
 
     @PostMapping("/create")
-    public ResponseEntity criar (@RequestBody @Valid AlunoDto alunoDto){
+    public ResponseEntity criar (@RequestBody @Valid AlunoDto alunoDto)  {
         service.cadastrarAluno(alunoDto);
+
 //        service.criarUsuarioParaAluno(alunoDto);
         return ResponseEntity.noContent().build();
     }
